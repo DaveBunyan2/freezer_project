@@ -1,4 +1,4 @@
-from mysql.connector import MySQLConnectionPool
+import mysql.connector
 
 
 def insert_data(data, connection_pool, table_name):
