@@ -3,7 +3,6 @@ from pull_data import pull_data
 from insert_data import insert_data
 import time
 from datetime import datetime
-import mysql.connector
 from mysql.connector import pooling
 
 
@@ -15,7 +14,7 @@ db_config = {
 }
 
 # Create a connection pool
-print('Creating connection pool')
+print('Creating connection pool\n')
 connection_pool = pooling.MySQLConnectionPool(
     pool_name="mypool",
     pool_size=5,
@@ -100,7 +99,7 @@ def data_processor(url, wait_time):
         print('Getting data')
 
         # Fetch data using the pull_data function (test mode)
-        data = pull_data(url, test=True)
+        data = pull_data(url, verbose=2)
 
         # Get timestamp
         current_time = datetime.now()
@@ -161,7 +160,7 @@ def data_processor(url, wait_time):
             print('No data received')
 
         # Display a message indicating the wait time before the next cycle
-        print(f'Waiting {wait_time} seconds')
+        print(f'Waiting {wait_time} seconds\n')
 
         # Pause execution for the specified wait time
         time.sleep(wait_time)
