@@ -36,6 +36,7 @@ def pull_data(url, requests_module=requests, test=False, verbose=0):
 
         # If in test mode, return sample data from a local file
         if test:
+            print('Using test data')
             with open('src/getvar.csv', 'r') as file:
                 return file.read()
 

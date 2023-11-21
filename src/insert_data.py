@@ -1,7 +1,7 @@
 import mysql.connector
 
 
-def insert_data(data, connection_pool, table_name):
+def insert_data(data, connection_pool, sensor_type):
     '''
     Insert data into a specified table using a connection pool.
 
@@ -27,8 +27,12 @@ def insert_data(data, connection_pool, table_name):
         cursor = conn.cursor()
 
         # Define SQL query for data insertion
-        query = f'''INSERT INTO {table_name} (timestamp, sensor_id, value) 
-                   VALUES (%s, %s, %s)'''
+        if sensor_type == 'door':
+            query = f'''INSERT INTO {sensor_type}_sensor_data (timestamp, sensor_id, {sensor_type}_status)
+                        VALUES (%s, %s, %s)'''
+        else:
+            query = f'''INSERT INTO {sensor_type}_sensor_data (timestamp, sensor_id, {sensor_type}_value) 
+                        VALUES (%s, %s, %s)'''
 
         # Insert data into the table
         cursor.executemany(query, data)
@@ -46,4 +50,4 @@ def insert_data(data, connection_pool, table_name):
         cursor.close()
 
         # Release the connection back to the pool
-        connection_pool.release_connection(conn)
+        conn.close()
