@@ -21,8 +21,7 @@ def pull_data(url, requests_module=requests, test=False, verbose=0):
     Raises:
     - requests.RequestException: If an error occurs while making the HTTP request.
     """
-    if verbose >= 2:
-        tic = time.time()
+    tic = time.time()
     try:
         # Make an HTTP GET request to the specified URL
         if verbose >= 1:
@@ -31,14 +30,14 @@ def pull_data(url, requests_module=requests, test=False, verbose=0):
 
         # Check for HTTP status code errors
         response.raise_for_status()
+        toc = time.time()
         if verbose >= 1:
             print(
                 f'Request finished with status code {response.status_code}\nReturning data')
         if verbose >= 2:
-            toc = time.time()
             print(f'Time taken for get request: {toc - tic}')
         # Return the text content of the response
-        return response.text
+        return response.text, toc - tic
 
     except requests.RequestException as err:
         # Print error message
@@ -51,18 +50,18 @@ def pull_data(url, requests_module=requests, test=False, verbose=0):
 
         # If in test mode, return sample data from a local file
         if test:
+            toc = time.time()
             if verbose >= 1:
                 print('Using test data')
             if verbose >= 2:
-                toc = time.time()
                 print(f'Time taken for request: {toc - tic}')
             with open('src/getvar.csv', 'r') as file:
-                return file.read()
+                return file.read(), toc - tic
 
         # If not in test mode, return None
         else:
+            toc = time.time()
             if verbose >= 2:
-                toc = time.time()
                 print('Returning')
                 print(f'Time taken since requesting data: {toc - tic}')
-            return None
+            return None, toc - tic

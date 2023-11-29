@@ -99,7 +99,8 @@ def data_processor(url, wait_time):
         print('Getting data')
 
         # Fetch data using the pull_data function (test mode)
-        data = pull_data(url, verbose=2)
+        data, req_time = pull_data(url)
+        print('Request time:', req_time)
 
         # Get timestamp
         current_time = datetime.now()
@@ -160,11 +161,14 @@ def data_processor(url, wait_time):
             print('No data received')
 
         # Display a message indicating the wait time before the next cycle
-        print(f'Waiting {wait_time} seconds\n')
+        if req_time < wait_time:
+            print(f'Waiting {wait_time - req_time} seconds\n')
 
-        # Pause execution for the specified wait time
-        time.sleep(wait_time)
+            # Pause execution for the specified wait time
+            time.sleep(wait_time - req_time)
+        else:
+            print('Request time exceeded 5 seconds')
 
 
 if __name__ == '__main__':
-    data_processor('http://169.254.97.17/getvar.csv', 5)
+    data_processor('http://169.254.126.21/getvar.csv', 5)
