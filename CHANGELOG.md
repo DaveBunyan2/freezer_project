@@ -20,3 +20,8 @@
 ### Added
 - extract_data.py
     - Extracts data from database and returns timestamps and values for a given sensor.
+
+## [0.0.3-b] - 2023-11-30
+
+### Changes
+- Changed extract_data() to take a start and end date as input.

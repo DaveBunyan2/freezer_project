@@ -7,6 +7,7 @@ name = "pypi"
 requests = "*"
 mysql-connector-python = "*"
 pytest = "*"
+dash = "*"
 
 [dev-packages]
 
