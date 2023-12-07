@@ -4,7 +4,6 @@ from insert_data import insert_data
 import time
 from datetime import datetime
 from mysql.connector import pooling
-from dashboard import create_app, run_server
 from multiprocessing import Process
 
 
@@ -174,4 +173,4 @@ def data_processor(url, wait_time):
 
 if __name__ == '__main__':
     # Start the data processing task in the main process
-    data_processor('http://169.254.97.17/getvar.csv', 5)
+    data_processor('http://169.254.126.21/getvar.csv', 5)

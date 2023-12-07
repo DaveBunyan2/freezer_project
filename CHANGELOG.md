@@ -25,3 +25,6 @@
 
 ### Changes
 - Changed extract_data() to take a start and end date as input.
+
+## [0.0.4-b] - 2023-12-07
+- Added extract_last() function to extract_data.py

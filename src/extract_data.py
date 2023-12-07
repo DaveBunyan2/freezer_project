@@ -30,3 +30,28 @@ def extract_data(start_date, end_date, id, table, connection_pool):
     finally:
         cursor.close()
         conn.close()
+
+def extract_last(id, table, connection_pool):
+    try:
+        conn = connection_pool.get_connection()
+
+        cursor = conn.cursor()
+
+        query = f'''SELECT {table}_value
+                    FROM {table}_sensor_data
+                    WHERE sensor_id = {id}
+                    ORDER BY timestamp DESC
+                    LIMIT 1'''
+
+        cursor.execute(query)
+
+        result = cursor.fetchall()
+
+        return result
+
+    except Exception as err:
+        print(f'Error: {err}')
+    
+    finally:
+        cursor.close()
+        conn.close()
